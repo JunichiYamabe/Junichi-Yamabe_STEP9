@@ -5,8 +5,12 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Auth::routes();
-
+//商品一覧
 Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('index');
+//マイページ
+Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'mypage'])->name('mypage')->middleware('auth');
+//お問い合わせ
+Route::get('/contact', [App\Http\Controllers\ContactController::class, 'contact'])->name('contact');
 
 //登録処理
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
