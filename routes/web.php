@@ -12,9 +12,9 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('order.show');
 
 //商品購入画面
-Route::get('/product/{id}/buy', [App\Http\Controllers\OrderController::class, 'buy'])->name('order.buy')->middleware('auth');
-Route::post('/product/{id}/buy', [App\Http\Controllers\OrderController::class, 'buyConfirm'])->name('order.buyConfirm')->middleware('auth');
-Route::post('/product/{id}/buy/complete', [App\Http\Controllers\OrderController::class, 'buyComplete'])->name('order.buyComplete')->middleware('auth');
+Route::get('/product/{id}/buy', [App\Http\Controllers\SaleController::class, 'buy'])->name('sale.buy')->middleware('auth');
+Route::post('/product/{id}/buy', [App\Http\Controllers\SaleController::class, 'buyConfirm'])->name('sale.buyConfirm')->middleware('auth');
+Route::post('/product/{id}/buy/complete', [App\Http\Controllers\SaleController::class, 'buyComplete'])->name('sale.buyComplete')->middleware('auth');
 
 //商品登録
 Route::get('/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('product.create')->middleware('auth');
@@ -41,11 +41,11 @@ Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'mypage'])-
 
 
   //新規ユーザー登録画面
-Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register.get');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register.post');
 
 //ログイン
-Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login.get');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.post');
 //ログアウト
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
