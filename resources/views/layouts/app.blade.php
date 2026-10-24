@@ -15,7 +15,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body>
   <header class='d-flex navbar navbar-light bg-white shadow-sm py-3 mb-4'>
     <div class="container">
