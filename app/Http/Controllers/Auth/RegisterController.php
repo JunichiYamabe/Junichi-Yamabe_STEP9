@@ -49,10 +49,23 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'name_kanji' => ['required', 'string', 'max:255'],
-            'name_kana' => ['required', 'string', 'max:255'],
+            'name_kanji' => ['required', 'string', 'max:255', 'regex:/^[\p{Han}\p{Hiragana}ー]+$/u'],
+            'name_kana' => ['required', 'string', 'max:255', 'regex:/^[\p{Katakana}ー]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            //エラーメッセージ
+            'name.required' => '氏名は必須です。',
+            'name.string' => '氏名は文字列で入力してください。',
+            'name.max' => '氏名は255文字以内で入力してください。',
+            'name_kanji.required' => '氏名（漢字・ひらがな）は必須です。',
+            'name_kanji.string' => '氏名（漢字・ひらがな）は文字列で入力してください。',
+            'name_kanji.max' => '氏名（漢字・ひらがな）は255文字以内で入力してください。',
+            'name_kana.required' => '氏名（カナ）は必須です。',
+            'name_kana.string' => '氏名（カナ）は文字列で入力してください。',
+            'name_kana.max' => '氏名（カナ）は255文字以内で入力してください。',
+            'name_kanji.regex' => '氏名（漢字・ひらがな）には、漢字およびひらがなのみを入力してください。',
+            'name_kana.regex' => '氏名（カナ）には、カタカナのみを入力してください。',
         ]);
     }
 
@@ -70,5 +83,17 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $this->create($request->all());
+        return redirect()->route('login.get');
     }
 }
