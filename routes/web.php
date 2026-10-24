@@ -1,51 +1,61 @@
-<?php
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MypageController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
-Auth::routes();
-//商品一覧画面
+
+// --- 認証関連 ---
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.get');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.get');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+// --- 商品・一般画面 ---
+// 商品一覧画面（ルートURL）
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-//購入商品詳細画面
-Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('order.show');
-
-//商品購入画面
-Route::get('/product/{id}/buy', [App\Http\Controllers\SaleController::class, 'buy'])->name('sale.buy')->middleware('auth');
-Route::post('/product/{id}/buy', [App\Http\Controllers\SaleController::class, 'buyConfirm'])->name('sale.buyConfirm')->middleware('auth');
-Route::post('/product/{id}/buy/complete', [App\Http\Controllers\SaleController::class, 'buyComplete'])->name('sale.buyComplete')->middleware('auth');
-
-//商品登録
-Route::get('/product/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('product.create')->middleware('auth');
-Route::post('/product/store', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('product.store')->middleware('auth');
-
-//出品商品詳細
-Route::get('/product/{id}', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('product.show');
-//出品商品編集
-Route::get('/product/{id}/edit', [App\Http\Controllers\Admin\ProductController::class,
-  'edit'])->name('product.edit')->middleware('auth');
-Route::post('/product/{id}/update', [App\Http\Controllers\Admin\ProductController::class,
-  'update'])->name('product.update')->middleware('auth');
-//出品商品削除
-Route::post('/product/{id}/delete', [App\Http\Controllers\Admin\ProductController::class,
-  'destroy'])->name('product.destroy')->middleware('auth');
-
-//お問い合わせ画面・送信
-Route::get('/contact', [App\Http\Controllers\ContactController::class, 'contact'])->name('contact');
-Route::post('/contact/send', [App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
-
-//マイページ画面
-Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'mypage'])->name('mypage')->middleware('auth');
+// 商品詳細画面
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
 
+// --- 購入関連 (要ログイン) ---
+Route::middleware('auth')->group(function () {
+    Route::get('/product/{id}/buy', [SaleController::class, 'buy'])->name('sale.buy');
+    Route::post('/product/{id}/buy', [SaleController::class, 'buyConfirm'])->name('sale.buyConfirm');
+    Route::post('/product/{id}/buy/complete', [SaleController::class, 'buyComplete'])->name('sale.buyComplete');
+});
 
-  //新規ユーザー登録画面
-Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register.get');
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register.post');
 
-//ログイン
-Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login.get');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.post');
-//ログアウト
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+// --- 管理・出品者向け商品操作 (要ログイン) ---
+Route::middleware('auth')->group(function () {
+    Route::get('/product/create', [AdminProductController::class, 'create'])->name('product.create');
+    Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
+    
+    Route::get('/product/{id}/edit', [AdminProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product/{id}/update', [AdminProductController::class, 'update'])->name('product.update');
+    Route::post('/product/{id}/delete', [AdminProductController::class, 'destroy'])->name('product.destroy');
+});
+
+
+// --- マイページ・アカウント関連 (要ログイン) ---
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [MypageController::class, 'mypage'])->name('mypage');
+    
+    // アカウント編集
+    Route::get('/mypage/edit', [MypageController::class, 'edit'])->name('mypage.edit');
+    Route::post('/mypage/update', [MypageController::class, 'update'])->name('mypage.update');
+});
+
+
+// --- お問い合わせ ---
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
