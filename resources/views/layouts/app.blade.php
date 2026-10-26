@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -21,7 +24,7 @@
 
 <body>
   <header class='d-flex navbar navbar-light bg-white shadow-sm py-3 mb-4'>
-    <div class="container">
+  <div class="container-fluid">
     <div class="container d-flex justify-content-between align-items-center">
         <!-- 左側：ロゴ -->
         <a class="navbar-brand fw-bold fs-4" href="{{ url('/') }}">
@@ -46,7 +49,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
 
     <footer class="d-flex flex-column align-items-center py-4 my-4 border-top gap-3">
       <div class="d-flex gap-3">

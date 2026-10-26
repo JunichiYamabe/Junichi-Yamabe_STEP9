@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+          <a href ="{ route('create')}">新規投稿 </a>
             <div class="card">
                 <div class="card-header">{{ __('商品一覧') }}</div>
                 <div class="card-body">
@@ -15,6 +17,7 @@
                         <th>商品説明</th>
                         <th>画像</th>
                         <th>料金</th>
+                        <th>操作</th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -33,8 +36,9 @@
                       </tr>
                       @endforelse
                     </tbody>
-                </div>
-            </div>
+                  </table> 
+                </div> 
+            </div> 
         </div>
     </div>
 </div>
