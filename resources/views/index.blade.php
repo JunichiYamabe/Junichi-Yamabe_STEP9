@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-          <a href ="{ route('create')}">新規投稿 </a>
+          <h1>商品一覧</h1>
             <div class="card">
                 <div class="card-header">{{ __('商品一覧') }}</div>
                 <div class="card-body">
