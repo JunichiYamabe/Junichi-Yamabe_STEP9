@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Collection
 ?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
