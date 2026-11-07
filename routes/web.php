@@ -20,8 +20,15 @@ Auth::routes();
 // 商品一覧画面（ルートURL）
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
+//商品登録画面
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+// 商品登録処理
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 // 商品詳細画面
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+//商品削除
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
 
 
 // --- 購入関連 (要ログイン) ---
@@ -34,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 // --- 管理・出品者向け商品操作 (要ログイン) ---
 Route::middleware('auth')->group(function () {
-    Route::resource('products', AdminProductController::class);
+    Route::resource('admin/products', AdminProductController::class)->names('admin.products');
 });
 
 

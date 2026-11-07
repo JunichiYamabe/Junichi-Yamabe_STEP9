@@ -1,8 +1,3 @@
-<?php
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Collection
-?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -26,45 +21,53 @@ use Illuminate\Database\Eloquent\Collection
 
 <body>
   <header class='d-flex navbar navbar-light bg-white shadow-sm py-3 mb-4'>
-  <div class="container-fluid">
-    <div class="container d-flex justify-content-between align-items-center">
-        <!-- 左側：ロゴ -->
-        <a class="navbar-brand fw-bold fs-4" href="{{ url('/') }}">
-            Cytech EC
-        </a>
+    <div class="container-fluid">
+      <div class="container d-flex justify-content-between align-items-center">
+          <!-- 左側：ロゴ -->
+          <a class="navbar-brand fw-bold fs-4" href="{{ url('/') }}">
+              Cytech EC
+          </a>
 
-        <!-- 右側：ナビメニュー・ユーザー名・ログアウトボタン -->
-        <div class="d-flex align-items-center gap-3">
-            <a class="nav-link text-primary" href="{{ route('index') }}">Home</a>
-            <a class="nav-link text-primary" href="{{ route('mypage') }}">マイページ</a> 
-            <span class="text-end text-muted">ログインユーザー: {{ Auth::user()->name ?? 'ゲスト' }}</span>
-            <button class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</button>
-            <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-                @csrf
-            </form>
-        </div>        
-      </div>
-  </div>
+          <!-- 右側：ナビメニュー・ユーザー名・ログアウトボタン -->
+          <div class="d-flex align-items-center gap-3">
+              <a class="nav-link text-primary" href="{{ route('index') }}">Home</a>
+              <a class="nav-link text-primary" href="{{ route('mypage') }}">マイページ</a> 
+              <span class="text-end text-muted">ログインユーザー: {{ Auth::user()->name ?? 'ゲスト' }}</span>
+              <button class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</button>
+              <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                  @csrf
+              </form>
+          </div>        
+        </div>
+    </div>
         
-    </header>
+  </header>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+  <main class="py-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          @yield('content')
+        </div>
+      </div>
+    </div>
+  </main>
 
-    <footer class="d-flex flex-column align-items-center py-4 my-4 border-top gap-3">
-      <div class="d-flex gap-3">
-        <a class="btn btn-primary py-2" href="{{ route('contact') }}">お問い合わせ</a>
-      </div>
-      
-      <div class="d-flex gap-3">
-        <a href="{{ route('index') }}">Home</a>
-        <a href="{{ route('mypage') }}">マイページ</a>
-      </div>
-      <div class="d-flex gap-3">
-        <p class="text-center text-muted">&copy; 2026 TNG_Blog</p>
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <footer class="d-flex flex-column align-items-center py-4 my-4 border-top gap-3">
+    <div class="d-flex gap-3">
+      <a class="btn btn-primary py-2" href="{{ route('contact') }}">お問い合わせ</a>
+    </div>
+    
+    <div class="d-flex gap-3">
+      <a href="{{ route('index') }}">Home</a>
+      <a href="{{ route('mypage') }}">マイページ</a>
+    </div>
+    <div class="d-flex gap-3">
+      <p class="text-center text-muted">&copy; 2026 TNG_Blog</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 </html>
