@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Sale extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'product_id', 'quantity', 'total_price'];
+    protected $fillable = ['user_id', 'product_id', 'quantity', 'created_at', 'updated_at'];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

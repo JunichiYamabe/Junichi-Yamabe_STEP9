@@ -34,7 +34,6 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 // --- 購入関連 (要ログイン) ---
 Route::middleware('auth')->group(function () {
     Route::get('/products/{id}/buy', [SaleController::class, 'buy'])->name('sale.buy');
-    Route::post('/products/{id}/buy', [SaleController::class, 'buyConfirm'])->name('sale.buyConfirm');
     Route::post('/products/{id}/buy/complete', [SaleController::class, 'buyComplete'])->name('sale.buyComplete');
 });
 

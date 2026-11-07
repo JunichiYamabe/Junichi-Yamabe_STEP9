@@ -21,8 +21,7 @@
 </div>
 {{-- カートボタン・戻る --}}
 <div class="mt-3">
-    {{-- <a href="{{ route('cart.add', ['id' => $product->id]) }}" class="btn btn-success">カートに追加する</a> --}}
-    <a class="btn btn-primary">カートに追加する(リンク未実装)</a> 
+    <a href = '{{ route('sale.buy',['id' => $product->id]) }}'class="btn btn-primary">カートに追加する</a> 
     <a href="{{ route('index') }}" class="btn btn-secondary">戻る</a>
 </div>
 

@@ -1,64 +1,41 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // 1. 購入画面の表示
+    public function buy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('products.buy', compact('product'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // 2. 購入完了・確定処理（DBトランザクション）
+    public function buyComplete(Request $request, $id)
     {
-        //
-    }
+        $product = Product::findOrFail($id);
+        $quantity = $request->input('quantity');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // バリデーション
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:' . $product->stock,
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        try {
+            DB::transaction(function () use ($product, $quantity) {
+                // 在庫の減算
+                $product->stock -= $quantity;
+                $product->save();
+            });
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            return redirect()->route('index')->with('success', '商品を購入しました！');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        } catch (\Exception $e) {
+            return back()->with('error', '購入処理に失敗しました。');
+        }
     }
 }
