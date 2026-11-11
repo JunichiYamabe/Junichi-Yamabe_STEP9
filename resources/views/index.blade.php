@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if (session('success'))
+    <div id="flash-message" class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <h1 class="mb-4">商品一覧</h1>
 
 <div class="card mb-4">
@@ -75,3 +81,6 @@
     </div> 
 </div> 
 @endsection
+
+<!-- JS処理 -->
+@vite(['resources/js/flash-message.js'])

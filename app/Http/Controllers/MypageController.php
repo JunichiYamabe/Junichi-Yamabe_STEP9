@@ -1,64 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class MypageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+   public function mypage()
     {
-        //
-    }
+        // 1. 現在ログインしているユーザーのIDを取得
+        $userId = Auth::id();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // 2. ログインユーザーが登録した商品データを取得（user_id が一致するもの）
+        $products = Product::where('user_id', $userId)->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // 3. ログインユーザーの購入履歴データを取得（※ Saleテーブルに user_id がある場合）
+        $sales = Sale::where('user_id', $userId)->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // 4. compact関数でビューへデータを渡す
+        return view('mypage', compact('products', 'sales'));
     }
 }

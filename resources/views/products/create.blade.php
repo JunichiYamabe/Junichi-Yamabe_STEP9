@@ -46,8 +46,8 @@
             @enderror
         </div>
         
-        <button type="submit" class="btn btn-primary mt-3">追加</button>
-        <a href="{{ route('index') }}" class="btn btn-secondary mt-3">キャンセル</a>
+        <button type="submit" class="btn btn-primary mt-3">登録</button>
+        <a href="{{ route('mypage') }}" class="btn btn-secondary mt-3">戻る</a>
     </form>
 </div>
 @endsection

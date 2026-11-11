@@ -19,7 +19,6 @@ Auth::routes();
 // --- 商品・一般画面 ---
 // 商品一覧画面（ルートURL）
 Route::get('/', [IndexController::class, 'index'])->name('index');
-
 //商品登録画面
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 // 商品登録処理
