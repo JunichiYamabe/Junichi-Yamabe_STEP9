@@ -96,6 +96,9 @@
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                            <div class="col-md-6 offset-md-4 mt-2">
+                                <p>すでにアカウントをお持ちの方は<a href="{{ route('login') }}">こちら</a></p>
+                            </div>
                         </div>
                     </form>
                 </div>

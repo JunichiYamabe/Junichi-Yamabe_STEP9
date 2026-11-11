@@ -8,6 +8,9 @@
     </div>
 @endif
 
+<!-- JS処理 -->
+@vite(['resources/js/app.js'])
+
 <h1 class="mb-4">商品一覧</h1>
 
 <div class="card mb-4">
@@ -82,5 +85,4 @@
 </div> 
 @endsection
 
-<!-- JS処理 -->
-@vite(['resources/js/flash-message.js'])
+

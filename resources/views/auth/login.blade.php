@@ -64,6 +64,11 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-8 offset-md-4">
+                                <p><a href="{{ route('register') }}">新規登録</a>はこちら</p>
+                            </div>
                     </form>
                 </div>
             </div>
