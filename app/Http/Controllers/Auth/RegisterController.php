@@ -75,8 +75,9 @@ class RegisterController extends Controller
      *
      * @return User
      */
-    protected function create(array $data)
+    protected function create(UserRequest $request)
     {
+        $data = $request->validated();
         return User::create([
             'name' => $data['name'],
             'name_kanji' => $data['name_kanji'],
@@ -91,10 +92,10 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
         $this->validator($request->all())->validate();
-        $this->create($request->all());
+        $this->create($request);
         return redirect()->route('login');
     }
 }
