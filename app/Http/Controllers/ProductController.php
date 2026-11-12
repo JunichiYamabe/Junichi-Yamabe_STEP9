@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -19,17 +20,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        // バリデーション
-        $request->validate([
-            'product_name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'description' => 'required|string',
-            'img_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         // 画像の保存
         $imagePath = null;
         if ($request->hasFile('img_path')) {
@@ -75,9 +67,26 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        // 画像の保存
+        $imagePath = $product->img_path;
+        if ($request->hasFile('img_path')) {
+            $imagePath = $request->file('img_path')->store('images', 'public');
+        }
+
+        // 商品の更新
+        $product->update([
+            'product_name' => $request->input('product_name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'img_path' => $imagePath,
+            'stock' => $request->input('stock')
+        ]);
+
+        return redirect()->route('index')->with('success', '商品が更新されました。');
     }
 
     /**

@@ -40,7 +40,7 @@
 
         <div class="form-group mb-3">
             <label for="img_path">商品画像</label>
-            <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="img_path" name="img_path" accept="image/*">
+            <input type="file" class="form-control-file @error('img_path') is-invalid @enderror" id="img_path" name="img_path" accept="image/*">
             @error('img_path')
                 <div class="text-danger small mt-1">{{ $message }}</div>
             @enderror

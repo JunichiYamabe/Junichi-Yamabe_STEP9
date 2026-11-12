@@ -2,6 +2,13 @@
 
 @section('content')
 
+{{-- フラッシュメッセージの表示部分 --}}
+    @if (session('success'))
+        <div class="alert alert-success" id="flash-message" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
   <h1 class="mb-4">マイページ</h1>
   <div class="card mb-4">
       <div class="card-header">{{ __('ユーザー情報') }}

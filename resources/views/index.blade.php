@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- フラッシュメッセージの表示部分 --}}
 @if (session('success'))
     <div id="flash-message" class="alert alert-success">
         {{ session('success') }}
