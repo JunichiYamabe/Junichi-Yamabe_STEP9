@@ -25,21 +25,24 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 // 商品詳細画面
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-//商品削除
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-
+// //商品削除
+// Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+// --- 管理・出品者向け商品操作 (要ログイン) ---
+Route::middleware('auth')->group(function () {
+    // 商品詳細画面（出品者用）
+    Route::get('/admin/products/{id}', [ProductController::class, 'adminShow'])->name('admin.products.show');
+    // 商品編集画面
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    // 商品更新処理
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+    // 商品削除処理
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
 
 // --- 購入関連 (要ログイン) ---
 Route::middleware('auth')->group(function () {
     Route::get('/products/{id}/buy', [SaleController::class, 'buy'])->name('sale.buy');
     Route::post('/products/{id}/buy/complete', [SaleController::class, 'buyComplete'])->name('sale.buyComplete');
-});
-
-
-// --- 管理・出品者向け商品操作 (要ログイン) ---
-Route::middleware('auth')->group(function () {
-    Route::resource('admin/products', AdminProductController::class)->names('admin.products');
 });
 
 

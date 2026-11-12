@@ -58,13 +58,19 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
+    public function adminShow(string $id)
+    {
+        $product = Product::findOrFail($id);
+        return view('admin.admin_products', compact('product'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
-    }
+        $product = Product::findOrFail($id);
+        return view('products.edit', compact('product'));    }
 
     /**
      * Update the specified resource in storage.

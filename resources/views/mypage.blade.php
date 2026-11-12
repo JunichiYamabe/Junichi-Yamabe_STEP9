@@ -38,7 +38,7 @@
                               <td>{{ $product->product_name }}</td>
                               <td>{{ $product->description }}</td>
                               <td>{{ number_format($product->price) }}</td>
-                              <td><a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-success btn-sm">詳細</a></td>
+                              <td><a href="{{ route('admin.products.show', ['id' => $product->id]) }}" class="btn btn-success btn-sm">詳細</a></td>
                           </tr>
                       @endforeach
                   </tbody>

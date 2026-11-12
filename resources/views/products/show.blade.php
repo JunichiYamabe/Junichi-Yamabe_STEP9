@@ -19,7 +19,7 @@
         <p><button class='btn btn-success'>いいねボタン実装予定(非同期処理)</button></p>
     </div>
 </div>
-{{-- カートボタン・戻る --}}
+{{-- 購入者用カートボタン・戻る --}}
 <div class="mt-3">
     <a href = '{{ route('sale.buy',['id' => $product->id]) }}'class="btn btn-primary">カートに追加する</a> 
     <a href="{{ route('index') }}" class="btn btn-secondary">戻る</a>
