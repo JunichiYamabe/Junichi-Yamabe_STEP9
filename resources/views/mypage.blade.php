@@ -5,7 +5,7 @@
   <h1 class="mb-4">マイページ</h1>
   <div class="card mb-4">
       <div class="card-header">{{ __('ユーザー情報') }}
-        <a href="{{ route('mypage.edit', Auth::id()) }}" class="btn btn-primary btn-sm float-right ms-4">アカウント編集（リンク先未実装）</a>
+        <a href="{{ route('mypage.edit', Auth::id()) }}" class="btn btn-primary btn-sm float-right ms-4">アカウント編集</a>
       </div>
       <div class="card-body">
           <p><strong>ユーザー名:</strong> {{ Auth::user()->name }}</p>
