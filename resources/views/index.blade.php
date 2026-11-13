@@ -63,13 +63,8 @@
                     <td>{{ $product->description }}</td>
                     <td><img src="{{ asset('storage/' . $product->img_path) }}" alt="{{ $product->product_name }}" width="50" height="50"></td>
                     <td>{{ number_format($product->price) }}</td>
-                    <td><a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">詳細</a></td>
-                    <td>
-                        <form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
-                        </form>
+                    <td><a href="{{ route('products.show', ['id' => $product->id]) }}" class="btn btn-success btn-sm">詳細</a></td>
+
                 </tr>
                 @empty
                 <tr>

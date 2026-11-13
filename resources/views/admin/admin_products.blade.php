@@ -16,7 +16,6 @@
         @endif
         <p><strong>金額(¥):</strong> {{ number_format($product->price) }}</p>
         <p><strong>会社:</strong> {{ $product->company_id }}</p>
-        <p><button class='btn btn-success'>いいねボタン実装予定(非同期処理)</button></p>
     </div>
 </div>
 
