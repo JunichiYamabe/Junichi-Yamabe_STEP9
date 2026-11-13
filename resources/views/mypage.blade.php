@@ -31,7 +31,7 @@
               <table class="table table-striped">
                   <thead>
                       <tr>
-                        <th>商品番号</th>
+                          <th>商品番号</th>
                           <th>商品名</th>
                           <th>商品説明</th>
                           <th>料金(¥)</th>
@@ -51,6 +51,8 @@
                   </tbody>
               </table>
           @endif
+      </div> {{-- ← 【追加】 card-body を閉じる --}}
+  </div>     {{-- ← 【追加】 card を閉じる --}}
 
 
   <div class="card mb-4">
@@ -83,4 +85,4 @@
       </div>
   </div>
 
-  @endsection
+@endsection
