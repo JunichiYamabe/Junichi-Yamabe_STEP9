@@ -22,7 +22,7 @@
 
 {{-- 出品者用編集・削除ボタン・戻る --}}
 <div class="mt-3">
-    <a href = '{{ route('products.edit',['id' => $product->id]) }}'class="btn btn-primary">編集する</a> 
+    <a href = '{{ route('products.edit',['id' => $product->id]) }}'class="btn btn-primary">編集</a> 
     <form action="{{ route('products.destroy', ['id' => $product->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('本当に削除しますか？');">
         @csrf
         @method('DELETE')

@@ -94,7 +94,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('アカウント情報更新') }}
+                                    {{ __('更新') }}
                                 </button>
                                 <a href="{{ route('mypage') }}" class="btn btn-secondary mt-3 ">
                                     {{ __('戻る') }}
