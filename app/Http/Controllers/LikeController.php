@@ -6,59 +6,20 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function likeProduct(Request $request, $product_id)
     {
-        //
-    }
+        $user = auth()->user();
+        $product = \App\Models\Product::findOrFail($product_id);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Check if the user has already liked the product
+        if ($product->likedBy($user)) {
+            // If already liked, remove the like
+            $product->likes()->where('user_id', $user->id)->delete();
+            return response()->json(['message' => 'いいねを取り消しました。']);
+        } else {
+            // If not liked, add a new like
+            $product->likes()->create(['user_id' => $user->id]);
+            return response()->json(['message' => 'いいねしました。']);
+        }
     }
 }

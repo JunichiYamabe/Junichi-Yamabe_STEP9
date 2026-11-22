@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LikeController;
 
 
 // --- 認証関連 ---
@@ -54,6 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/mypage/update', [MypageController::class, 'update'])->name('mypage.update');
 });
 
+// --- いいね関連 (要ログイン) ---
+Route::middleware('auth')->group(function () {
+    Route::post('/products/{product_id}/like', [LikeController::class, 'likeProduct'])
+        ->name('products.like');
+})
 
 // --- お問い合わせ ---
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
