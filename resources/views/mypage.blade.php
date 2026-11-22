@@ -51,8 +51,8 @@
                   </tbody>
               </table>
           @endif
-      </div> {{-- ← 【追加】 card-body を閉じる --}}
-  </div>     {{-- ← 【追加】 card を閉じる --}}
+      </div> 
+  </div>   
 
 
   <div class="card mb-4">
@@ -71,12 +71,12 @@
                       </tr>
                   </thead>
                   <tbody>
-                      @foreach ($sales as $purchase)
+                      @foreach ($sales as $sale)
                           <tr>
-                              <td>{{ $purchase->product_name }}</td>
-                              <td>{{ $purchase->description }}</td>
-                              <td>{{ number_format($purchase->price) }}</td>
-                              <td>{{ $purchase->quantity }}</td>
+                              <td>{{ $sale->product?->product_name }}</td>
+                              <td>{{ $sale->product?->description }}</td>
+                              <td>{{ number_format($sale->product?->price) }}</td>
+                              <td>{{ $sale->quantity }}</td>
                           </tr>
                       @endforeach
                   </tbody>
