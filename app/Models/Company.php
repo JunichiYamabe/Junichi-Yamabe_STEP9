@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'address', 'phone', 'email', 'website'];
+    protected $fillable = ['company_name', 'product_id', 'sale_id'];
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'company_id');
