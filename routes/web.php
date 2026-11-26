@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/products/{product_id}/like', [LikeController::class, 'likeProduct'])
         ->name('products.like');
-})
+});
 
 // --- お問い合わせ ---
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
