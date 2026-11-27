@@ -33,7 +33,7 @@ class MypageController extends Controller
     public function update(UserRequest $request)
     {
         $user = Auth::user(); // 現在のログインユーザーを取得
-        // すでに安全なデータだけが入っていることが保証されている
+        //バリデーション済みのデータを取得
         $user->update($request->validated());
 
         return redirect()->route('mypage')->with('success', 'プロフィールを更新しました。');
