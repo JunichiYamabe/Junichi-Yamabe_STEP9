@@ -27,24 +27,38 @@ class SaleController extends Controller
             'quantity' => 'required|integer|min:1|max:' . $product->stock,
         ]);
 
-        try {
-            DB::transaction(function () use ($product, $quantity) {
+try {
+            DB::transaction(function () use ($request, $product, $quantity) {
                 // ① 在庫の減算
                 $product->stock -= $quantity;
                 $product->save();
 
                 // ② 購入履歴（salesテーブル）への記録を追加
                 Sale::create([
-                    'user_id'    => Auth::id(),          // 購入したユーザーのID
-                    'product_id' => $product->id,        // 購入された商品のID
-                    'quantity'   => $quantity,           // 購入個数
+                    'user_id'    => $request->user()?->id ?? Auth::id(),
+                    'product_id' => $product->id,
+                    'quantity'   => $quantity,
                 ]);
             });
+
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'message'    => '商品を購入しました！',
+                    'product_id' => $product->id,
+                    'quantity'   => $quantity,
+                    'stock'      => $product->stock,
+                ], 200);
+            }
 
             return redirect()->route('index')->with('success', '商品を購入しました！');
 
         } catch (\Exception $e) {
-            // エラー時のデバッグ用にあえて例外メッセージを出したい場合は $e->getMessage() など
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'message' => '購入処理に失敗しました。',
+                ], 500);
+            }
+
             return back()->with('error', '購入処理に失敗しました。');
         }
     }

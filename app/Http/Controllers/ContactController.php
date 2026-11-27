@@ -11,7 +11,7 @@ class ContactController extends Controller
 {
    public function contact()
    {
-       return view('emails.contact');
+       return view('contact');
    }
 
    public function send(ContactRequest $request)
@@ -26,6 +26,6 @@ class ContactController extends Controller
         return redirect()->route('contact')->with('error', 'メール送信中にエラーが発生しました。後でもう一度お試しください。');
     }
     //送信成功時のリダイレクト
-    return redirect()->route('contact')->with('success', 'お問い合わせ内容を送信しました。');
+    return redirect()->route('index')->with('success', 'お問い合わせ内容を送信しました。');
    }
 }

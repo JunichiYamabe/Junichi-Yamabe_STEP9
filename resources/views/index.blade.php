@@ -3,14 +3,30 @@
 @section('content')
 
 {{-- フラッシュメッセージの表示部分 --}}
-@if (session('success'))
-    <div id="flash-message" class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+    @if (session('success'))
+        <div id="flash-message" class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
 <!-- JS処理 -->
-@vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 
 <h1 class="mb-4">商品一覧</h1>
 

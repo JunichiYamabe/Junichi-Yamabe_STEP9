@@ -28,7 +28,7 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
 // --- 管理・出品者向け商品操作 (要ログイン) ---
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // 商品詳細画面（出品者用）
     Route::get('/admin/products/{id}', [ProductController::class, 'adminShow'])->name('admin.products.show');
     // 商品編集画面
@@ -40,14 +40,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // --- 購入関連 (要ログイン) ---
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products/{id}/buy', [SaleController::class, 'buy'])->name('sale.buy');
     Route::post('/products/{id}/buy/complete', [SaleController::class, 'buyComplete'])->name('sale.buyComplete');
 });
 
 
 // --- マイページ・アカウント関連 (要ログイン) ---
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/mypage', [MypageController::class, 'mypage'])->name('mypage');
     
     // アカウント編集
@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // --- いいね関連 (要ログイン) ---
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/products/{product_id}/like', [LikeController::class, 'likeProduct'])
         ->name('products.like');
 });

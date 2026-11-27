@@ -21,19 +21,10 @@ class ContactMail extends Mailable
         $this->contact = $contact;
     }
 
-    // メールの件名や差出人など
-    public function envelope(): Envelope
+    // ビルドメソッドでメールの内容を設定
+    public function build()
     {
-        return new Envelope(
-            subject: '【お問い合わせ】新しいメッセージが届きました',
-        );
-    }
-
-    // メールの本文となるBladeビューを指定
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.contact', // resources/views/emails/contact.blade.php 
-        );
+        return $this->subject('新しいお問い合わせ')
+                    ->view('emails.contact');
     }
 }
