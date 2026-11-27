@@ -26,6 +26,7 @@ class User extends Authenticatable
         'name_kana',
         'email',
         'password',
+        'company_id',
     ];
     public function posts(): HasMany
     {
@@ -39,6 +40,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Sale::class, 'user_id');
     }   
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

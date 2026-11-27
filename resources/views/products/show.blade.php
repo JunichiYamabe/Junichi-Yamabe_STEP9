@@ -15,7 +15,7 @@
             <img src="{{ asset('storage/' . $product->img_path) }}" alt="{{ $product->product_name }}" width="200" height="200">
         @endif
         <p><strong>金額(¥):</strong> {{ number_format($product->price) }}</p>
-        <p><strong>会社:</strong> {{ $product->company_id }}</p>
+        <p><strong>会社:</strong> {{ $product->company->company_name }}</p>
 
         {{-- ▼ ここからいいねボタン ▼ --}}
         @auth
